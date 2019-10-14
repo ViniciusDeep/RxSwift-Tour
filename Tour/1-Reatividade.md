@@ -42,9 +42,7 @@ class AudioPlayer {
         stopPlayback()
     }
 }
-```
 
-```swift
 private extension AudioPlayer {
     enum State {
         case idle
@@ -52,9 +50,7 @@ private extension AudioPlayer {
         case paused(Item)
     }
 }
-```
 
-````swift
 class AudioPlayer {
     private let notificationCenter: NotificationCenter
 
@@ -62,9 +58,7 @@ class AudioPlayer {
         self.notificationCenter = notificationCenter
     }
 }
-```
 
-```swift
 extension Notification.Name {
     static var playbackStarted: Notification.Name {
         return .init(rawValue: "AudioPlayer.playbackStarted")
@@ -78,9 +72,7 @@ extension Notification.Name {
         return .init(rawValue: "AudioPlayer.playbackStopped")
     }
 }
-```
 
-```swift
 private extension AudioPlayer {
     func stateDidChange() {
         switch state {
@@ -93,8 +85,7 @@ private extension AudioPlayer {
         }
     }
 }
-```
-```swift
+
 class NowPlayingViewController: UIViewController {
     deinit {
         // If your app supports iOS 8 or earlier, you need to manually
@@ -124,9 +115,7 @@ class NowPlayingViewController: UIViewController {
         durationLabel.text = "\(item.duration)"
     }
 }
-```
 
-```swift
 protocol AudioPlayerObserver: class {
     func audioPlayer(_ player: AudioPlayer,
                      didStartPlaying item: AudioPlayer.Item)
@@ -136,9 +125,7 @@ protocol AudioPlayerObserver: class {
 
     func audioPlayerDidStop(_ player: AudioPlayer)
 }
-```
 
-```swift
 extension AudioPlayerObserver {
     func audioPlayer(_ player: AudioPlayer,
                      didStartPlaying item: AudioPlayer.Item) {}
@@ -148,23 +135,17 @@ extension AudioPlayerObserver {
 
     func audioPlayerDidStop(_ player: AudioPlayer) {}
 }
-```
 
-```swift
 private extension AudioPlayer {
     struct Observation {
         weak var observer: AudioPlayerObserver?
     }
 }
-```
 
-```swift
 class AudioPlayer {
     private var observations = [ObjectIdentifier : Observation]()
 }
-```
 
-```swift 
 private extension AudioPlayer {
     func stateDidChange() {
         for (id, observation) in observations {
@@ -186,9 +167,7 @@ private extension AudioPlayer {
         }
     }
 }
-```
 
-```swift
 extension AudioPlayer {
     func addObserver(_ observer: AudioPlayerObserver) {
         let id = ObjectIdentifier(observer)
@@ -200,18 +179,16 @@ extension AudioPlayer {
         observations.removeValue(forKey: id)
     }
 }
-```
 
-```swift
+
+
 class NowPlayingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         player.addObserver(self)
     }
 }
-```
 
-```swift
 extension NowPlayingViewController: AudioPlayerObserver {
     func audioPlayer(_ player: AudioPlayer,
                      didStartPlaying item: AudioPlayer.Item) {
@@ -219,7 +196,7 @@ extension NowPlayingViewController: AudioPlayerObserver {
         durationLabel.text = "\(item.duration)"
     }
 }
-```
+
 
 
 
